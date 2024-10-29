@@ -1,13 +1,16 @@
 ---
-title: "Lecciones básicas de Python para Analítica de Proyectos"
-author: 
-  - name: Juan C. Correa (Editor)
-email: jcc@criticalcentrality.com
-affiliation: Critical Centrality Institute
-date: "`r Sys.Date()`"
+title: "Analítica de Proyectos"
 format: html
-editor: visual
+keywords:
+  - Oferta Comercial de Estudios Universitarios
+  - Red Bipartita
+  - Modelos de Grafo Exponencial Aleatorio
+abstract: |
+  Para cualquier autoridad universitaria (e.g., rector, vice-rector, decanos), la oferta educativa de estudios universitarios representa el corazón del negocio educativo. El objetivo de este tutorial es mostrar cómo lograr se modela a través de  **redes bipartitas** la oferta educativa universitaria para brindar apoyo estratégico a las autoridades universitarias a cargo de introducir innovaciones en su oferta comercial.
 ---
+# ¿Por qué hablar de Python y R para la gestión de proyectos?
+
+Una razón muy simple es que Excel y Microsoft Project resultan muy limitados cuando el análisis de datos implica analizar cosas que no pueden analizarse por Excel y Project.
 
 ```{python}
 import pandas as pd

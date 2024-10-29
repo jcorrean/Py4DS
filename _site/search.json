@@ -1,0 +1,9 @@
+[
+  {
+    "objectID": "Py4DS.html",
+    "href": "Py4DS.html",
+    "title": "Analítica de Proyectos",
+    "section": "",
+    "text": "1 ¿Por qué hablar de Python y R para la gestión de proyectos?\nUna razón muy simple es que Excel y Microsoft Project resultan muy limitados cuando el análisis de datos implica analizar cosas que no pueden analizarse por Excel y Project.\n\nimport pandas as pd\nbase_url = \"https://github.com/byuidatascience/data4python4ds/raw/master/data-raw/\"\ntable1 = pd.read_csv(\"{}table1/table1.csv\".format(base_url))\ntable2 = pd.read_csv(\"{}table2/table2.csv\".format(base_url))\ntable3 = pd.read_csv(\"{}table3/table3.csv\".format(base_url))\ntable4a = pd.read_csv(\"{}table4a/table4a.csv\".format(base_url))\ntable4b = pd.read_csv(\"{}table4b/table4b.csv\".format(base_url))\ntable5 = pd.read_csv(\"{}table5/table5.csv\".format(base_url), dtype = 'object')"
+  }
+]

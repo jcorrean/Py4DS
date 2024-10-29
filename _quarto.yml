@@ -1,15 +1,15 @@
 project:
   type: website
 
-title: Modelación por Redes Sociales de la Oferta Educativa Universitaria
-subtitle: "***Una herramienta para investigadores aplicados***"
-author: 
-  - name: María del Pilar García-Chitiva
-orcid: 0000-0001-6776-3422
-corresponding: TRUE
-affiliation: Instituto para El futuro de la Educación. Tecnológico de Monterrey 
-url: 'https://scholar.google.com/citations?user=-NEnYYcAAAAJ&hl=en'
-email: pilargarciach@tec.mx
+title: Analítica de Proyectos
+subtitle: "***Integrando Python y R a la gestión de proyectos***"
+author:
+  - name: Juan C. Correa
+    orcid: 0000-0002-0301-5641
+    corresponding: TRUE
+    affiliation: Critical Centrality Institute
+    url: 'https://scholar.google.com/citations?user=fb0nE80AAAAJ&hl=en'
+    email: j.correa.n@gmail.com
 date: "Octubre 10 2024"
 lang: es
 bibliography: refs.bib
@@ -19,13 +19,12 @@ website:
   title: ""
 sidebar:
   left:
-  - href: index.qmd
+  - href: Py4DS.qmd
 text: Home
-- about.qmd
 
 format:
   html:
-  theme: cosmo
+    theme: cosmo
 css: styles.css
 toc: true
 
