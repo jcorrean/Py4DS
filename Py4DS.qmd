@@ -1,6 +1,10 @@
 ---
 title: "Lecciones básicas de Python para Analítica de Proyectos"
-author: Juan C. Correa
+author: 
+  - name: Juan C. Correa (Editor)
+email: jcc@criticalcentrality.com
+affiliation: Critical Centrality Institute
+date: "`r Sys.Date()`"
 format: html
 editor: visual
 ---
