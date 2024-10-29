@@ -1,0 +1,32 @@
+project:
+  type: website
+
+title: Modelación por Redes Sociales de la Oferta Educativa Universitaria
+subtitle: "***Una herramienta para investigadores aplicados***"
+author: 
+  - name: María del Pilar García-Chitiva
+orcid: 0000-0001-6776-3422
+corresponding: TRUE
+affiliation: Instituto para El futuro de la Educación. Tecnológico de Monterrey 
+url: 'https://scholar.google.com/citations?user=-NEnYYcAAAAJ&hl=en'
+email: pilargarciach@tec.mx
+date: "Octubre 10 2024"
+lang: es
+bibliography: refs.bib
+number-sections: true
+
+website:
+  title: ""
+sidebar:
+  left:
+  - href: index.qmd
+text: Home
+- about.qmd
+
+format:
+  html:
+  theme: cosmo
+css: styles.css
+toc: true
+
+editor: visual

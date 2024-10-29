@@ -1,0 +1,18 @@
+---
+title: "Lecciones básicas de Python para Analítica de Proyectos"
+author: Juan C. Correa
+format: html
+editor: visual
+---
+
+```{python}
+import pandas as pd
+base_url = "https://github.com/byuidatascience/data4python4ds/raw/master/data-raw/"
+table1 = pd.read_csv("{}table1/table1.csv".format(base_url))
+table2 = pd.read_csv("{}table2/table2.csv".format(base_url))
+table3 = pd.read_csv("{}table3/table3.csv".format(base_url))
+table4a = pd.read_csv("{}table4a/table4a.csv".format(base_url))
+table4b = pd.read_csv("{}table4b/table4b.csv".format(base_url))
+table5 = pd.read_csv("{}table5/table5.csv".format(base_url), dtype = 'object')
+```
+
