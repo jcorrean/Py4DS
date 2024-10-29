@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#por-qué-hablar-de-python-y-r-para-la-gestión-de-proyectos" id="toc-por-qué-hablar-de-python-y-r-para-la-gestión-de-proyectos" class="nav-link active" data-scroll-target="#por-qué-hablar-de-python-y-r-para-la-gestión-de-proyectos"><span class="header-section-number">1</span> ¿Por qué hablar de Python y R para la gestión de proyectos?</a></li>
+  <li><a href="#por-qué-python-y-r-para-la-gestión-de-proyectos" id="toc-por-qué-python-y-r-para-la-gestión-de-proyectos" class="nav-link active" data-scroll-target="#por-qué-python-y-r-para-la-gestión-de-proyectos"><span class="header-section-number">1</span> ¿Por qué Python y R para la gestión de proyectos?</a></li>
   </ul>
 </nav>
     </div>
@@ -162,7 +162,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
   <div class="abstract">
     <div class="block-title">Resumen</div>
-    <p>Para cualquier autoridad universitaria (e.g., rector, vice-rector, decanos), la oferta educativa de estudios universitarios representa el corazón del negocio educativo. El objetivo de este tutorial es mostrar cómo lograr se modela a través de <strong>redes bipartitas</strong> la oferta educativa universitaria para brindar apoyo estratégico a las autoridades universitarias a cargo de introducir innovaciones en su oferta comercial.</p>
+    <p>Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, video, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. Este tutorial tiene como objetivo brindar un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.</p>
   </div>
 </div>
 
@@ -176,10 +176,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="por-qué-hablar-de-python-y-r-para-la-gestión-de-proyectos" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> ¿Por qué hablar de Python y R para la gestión de proyectos?</h1>
-<p>Una razón muy simple es que Excel y Microsoft Project resultan muy limitados cuando el análisis de datos implica analizar cosas que no pueden analizarse por Excel y Project.</p>
-<div id="db45c5ae" class="cell" data-execution_count="1">
+<section id="por-qué-python-y-r-para-la-gestión-de-proyectos" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> ¿Por qué Python y R para la gestión de proyectos?</h1>
+<p>Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.</p>
+<ol type="1">
+<li>Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas.</li>
+<li>Microsoft Project es un software licenciado (no libre) orientado al control de proyectos y no nos permite saber los pequeños cambios que pueden ocurrir en el transcurso de cualquier proyecto.</li>
+<li>Ni Excel ni Project son útiles para analizar “datos no estructurados” tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más ágil.</li>
+<li>El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning).</li>
+</ol>
+<div id="826b8346" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>base_url <span class="op">=</span> <span class="st">"https://github.com/byuidatascience/data4python4ds/raw/master/data-raw/"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>table1 <span class="op">=</span> pd.read_csv(<span class="st">"</span><span class="sc">{}</span><span class="st">table1/table1.csv"</span>.<span class="bu">format</span>(base_url))</span>

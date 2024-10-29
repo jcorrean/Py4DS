@@ -6,11 +6,16 @@ keywords:
   - Red Bipartita
   - Modelos de Grafo Exponencial Aleatorio
 abstract: |
-  Para cualquier autoridad universitaria (e.g., rector, vice-rector, decanos), la oferta educativa de estudios universitarios representa el corazón del negocio educativo. El objetivo de este tutorial es mostrar cómo lograr se modela a través de  **redes bipartitas** la oferta educativa universitaria para brindar apoyo estratégico a las autoridades universitarias a cargo de introducir innovaciones en su oferta comercial.
+  Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, video, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. Este tutorial tiene como objetivo brindar un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.
 ---
-# ¿Por qué hablar de Python y R para la gestión de proyectos?
+# ¿Por qué Python y R para la gestión de proyectos?
 
-Una razón muy simple es que Excel y Microsoft Project resultan muy limitados cuando el análisis de datos implica analizar cosas que no pueden analizarse por Excel y Project.
+Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.
+
+1. Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas.
+2. Microsoft Project es un software licenciado (no libre) orientado al control de proyectos y no nos permite saber los pequeños cambios que pueden ocurrir en el transcurso de cualquier proyecto.
+3. Ni Excel ni Project son útiles para analizar "datos no estructurados" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más ágil.
+4. El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning).
 
 ```{python}
 import pandas as pd
