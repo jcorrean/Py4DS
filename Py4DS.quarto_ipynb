@@ -1,0 +1,219 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Analítica de Proyectos\"\n",
+        "format: html\n",
+        "keywords:\n",
+        "  - Oferta Comercial de Estudios Universitarios\n",
+        "  - Red Bipartita\n",
+        "  - Modelos de Grafo Exponencial Aleatorio\n",
+        "abstract: |\n",
+        "  Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, video, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. Este tutorial tiene como objetivo brindar un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.\n",
+        "---\n",
+        "\n",
+        "\n",
+        "# ¿Por qué Python y R para la gestión de proyectos?\n",
+        "\n",
+        "Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.\n",
+        "\n",
+        "1.  Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas.\n",
+        "2.  Microsoft Project es un software licenciado (no libre) orientado al control de proyectos y no nos permite saber los pequeños cambios que pueden ocurrir en el transcurso de cualquier proyecto.\n",
+        "3.  Ni Excel ni Project son útiles para analizar \"datos no estructurados\" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más ágil.\n",
+        "4.  El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). Veamos algunas funcionalidades básicas en las llamadas ciencias de datos para entender cómo funciona Python. Una cruda realidad es que las personas encargadas de recolectar datos no son especialistas en estadística y por ello no suelen guardar los datos de una manera que sean directamente usables para fines analíticos. Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson [-@Hathaway2021] quienes se inspiraron en la \"biblia\" de la ciencia de datos escrita por Wickham y Grolemund [-@Wickham2017].\n",
+        "\n",
+        "## Organización de datos con Pandas\n",
+        "\n",
+        "Pandas es una librería para Python que está diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados.\n",
+        "\n",
+        "Las siguientes seis tablas contienen exactamente la misma información pero dicha info está dispuesta de manera diferente.\n"
+      ],
+      "id": "04d538be"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "base_url = \"https://github.com/byuidatascience/data4python4ds/raw/master/data-raw/\"\n",
+        "table1 = pd.read_csv(\"{}table1/table1.csv\".format(base_url))\n",
+        "table2 = pd.read_csv(\"{}table2/table2.csv\".format(base_url))\n",
+        "table3 = pd.read_csv(\"{}table3/table3.csv\".format(base_url))\n",
+        "table4a = pd.read_csv(\"{}table4a/table4a.csv\".format(base_url))\n",
+        "table4b = pd.read_csv(\"{}table4b/table4b.csv\".format(base_url))\n",
+        "table5 = pd.read_csv(\"{}table5/table5.csv\".format(base_url), dtype = 'object')"
+      ],
+      "id": "ed55ef33",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "La Tabla 1 (`table1`) viene así\n"
+      ],
+      "id": "c85a65c1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "table1"
+      ],
+      "id": "a2f14bb0",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "La Tabla 2 (`table2`) tiene esta apariencia\n"
+      ],
+      "id": "e90ca919"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "table2"
+      ],
+      "id": "cbd47c20",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "La Tabla 3 (`table3`) es algo distinta\n"
+      ],
+      "id": "e55c9e6b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "table3"
+      ],
+      "id": "398124e3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "La tabla 4a (`table4a`) también es algo diferente\n"
+      ],
+      "id": "b4646f10"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "table4a"
+      ],
+      "id": "4efb4367",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Y lo mismo podemos afirmar de la tabla 4b\n"
+      ],
+      "id": "e428b2b4"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "table4b"
+      ],
+      "id": "bb21748d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "y de la tabla 5\n"
+      ],
+      "id": "218efc78"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "table5"
+      ],
+      "id": "c35ca079",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "La recomendación estándar para analizar datos estructurados es que cada variable debe ocupar una columna, cada observación debe ocupar una fila o renglón, y los valores de cada observación deben estar en cada celda, tal como aparece en la siguiente imágen.\n",
+        "\n",
+        "![](tidy.png){fig-align=\"center\"}\n",
+        "\n",
+        "Estas tres reglas están interrelacionadas porque es imposible satisfacer solo dos de las tres. Esa interrelación conduce a un conjunto aún más simple de instrucciones prácticas:\n",
+        "\n",
+        "Coloque cada conjunto de datos en un objeto de tipo tibble.\n",
+        "Coloque cada variable en una columna.\n",
+        "\n",
+        "En este ejemplo, solo la tabla 1 está ordenada. Es la única representación donde cada columna es una variable.\n",
+        "\n",
+        "¿Por qué es importante tener los datos ordenados? \n",
+        "\n",
+        "La ventaja general es tener una forma consistente de almacenar datos. Si tiene una estructura de datos consistente, es más fácil aprender las herramientas que funcionan con ella porque tienen una uniformidad subyacente. La ventaja específica en colocar variables en columnas es que permite que la naturaleza vectorizada de pandas y NumPy brille.\n",
+        "\n",
+        "Las librerías \"altair\" y \"Pandas\" funcionan bien con datos ordenados. Aquí hay un par de pequeños ejemplos que muestran cómo podría trabajar con la tabla 1.\n"
+      ],
+      "id": "511c88ae"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import altair as alt\n",
+        "table1.assign(\n",
+        "    rate = lambda x: x.cases / x.population * 1000\n",
+        ")\n",
+        "\n",
+        "(table1.\n",
+        "  groupby('year').\n",
+        "  agg(n = ('cases', 'sum')).\n",
+        "  reset_index())\n",
+        "  \n",
+        "base_chart = (alt.Chart(table1).\n",
+        "  encode(alt.X('year'), alt.Y('cases'), detail = 'country'))\n",
+        "\n",
+        "chart = base_chart.mark_line() + base_chart.encode(color = 'country').mark_circle()\n",
+        "\n",
+        "chart"
+      ],
+      "id": "c879254a",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
