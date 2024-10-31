@@ -33,17 +33,18 @@ import bz2
 import glob
 
 # Get a list of all .bz2 files in the directory
-file_list = glob.glob("/home/jcc/Downloads/dataverse_files/*.bz2")
+file_list = glob.glob("*.bz2")
 
 for file in file_list:
-    with bz2.open(file, 'rb') as f:
-        df = pd.read_csv(f)
+    try:
+        with bz2.open(file, 'rb') as f:
+            # Start with a smaller chunksize to avoid memory issues
+            for chunk in pd.read_csv(f, chunksize=10000):
+                print(chunk.shape)  # Check if chunks are being processed
 
-        # Process the DataFrame as needed
-        # For example, to print the first 5 rows:
-        print(df.head())
-
-        # Or to save it as a different format:
-        df.to_csv('output.csv', index=False)
+                # Save each chunk to a separate file
+                chunk.to_csv(f"chunk_{file}_{chunk.index[0]}.csv", index=False)
+    except Exception as e:  # Catch potential errors
+        print(f"Error processing file {file}: {e}")
 ```
 
