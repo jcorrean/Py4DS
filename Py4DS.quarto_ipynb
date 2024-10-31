@@ -16,6 +16,8 @@
         "---\n",
         "\n",
         "\n",
+        "\n",
+        "\n",
         "# ¿Por qué Python y R para la gestión de proyectos?\n",
         "\n",
         "Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.\n",
@@ -31,7 +33,7 @@
         "\n",
         "Las siguientes seis tablas contienen exactamente la misma información pero dicha info está dispuesta de manera diferente.\n"
       ],
-      "id": "04d538be"
+      "id": "d7071afc"
     },
     {
       "cell_type": "code",
@@ -46,7 +48,7 @@
         "table4b = pd.read_csv(\"{}table4b/table4b.csv\".format(base_url))\n",
         "table5 = pd.read_csv(\"{}table5/table5.csv\".format(base_url), dtype = 'object')"
       ],
-      "id": "ed55ef33",
+      "id": "d410430c",
       "execution_count": null,
       "outputs": []
     },
@@ -56,7 +58,7 @@
       "source": [
         "La Tabla 1 (`table1`) viene así\n"
       ],
-      "id": "c85a65c1"
+      "id": "16eb8136"
     },
     {
       "cell_type": "code",
@@ -64,145 +66,7 @@
       "source": [
         "table1"
       ],
-      "id": "a2f14bb0",
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "La Tabla 2 (`table2`) tiene esta apariencia\n"
-      ],
-      "id": "e90ca919"
-    },
-    {
-      "cell_type": "code",
-      "metadata": {},
-      "source": [
-        "table2"
-      ],
-      "id": "cbd47c20",
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "La Tabla 3 (`table3`) es algo distinta\n"
-      ],
-      "id": "e55c9e6b"
-    },
-    {
-      "cell_type": "code",
-      "metadata": {},
-      "source": [
-        "table3"
-      ],
-      "id": "398124e3",
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "La tabla 4a (`table4a`) también es algo diferente\n"
-      ],
-      "id": "b4646f10"
-    },
-    {
-      "cell_type": "code",
-      "metadata": {},
-      "source": [
-        "table4a"
-      ],
-      "id": "4efb4367",
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "Y lo mismo podemos afirmar de la tabla 4b\n"
-      ],
-      "id": "e428b2b4"
-    },
-    {
-      "cell_type": "code",
-      "metadata": {},
-      "source": [
-        "table4b"
-      ],
-      "id": "bb21748d",
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "y de la tabla 5\n"
-      ],
-      "id": "218efc78"
-    },
-    {
-      "cell_type": "code",
-      "metadata": {},
-      "source": [
-        "table5"
-      ],
-      "id": "c35ca079",
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "markdown",
-      "metadata": {},
-      "source": [
-        "La recomendación estándar para analizar datos estructurados es que cada variable debe ocupar una columna, cada observación debe ocupar una fila o renglón, y los valores de cada observación deben estar en cada celda, tal como aparece en la siguiente imágen.\n",
-        "\n",
-        "![](tidy.png){fig-align=\"center\"}\n",
-        "\n",
-        "Estas tres reglas están interrelacionadas porque es imposible satisfacer solo dos de las tres. Esa interrelación conduce a un conjunto aún más simple de instrucciones prácticas:\n",
-        "\n",
-        "Coloque cada conjunto de datos en un objeto de tipo tibble.\n",
-        "Coloque cada variable en una columna.\n",
-        "\n",
-        "En este ejemplo, solo la tabla 1 está ordenada. Es la única representación donde cada columna es una variable.\n",
-        "\n",
-        "¿Por qué es importante tener los datos ordenados? \n",
-        "\n",
-        "La ventaja general es tener una forma consistente de almacenar datos. Si tiene una estructura de datos consistente, es más fácil aprender las herramientas que funcionan con ella porque tienen una uniformidad subyacente. La ventaja específica en colocar variables en columnas es que permite que la naturaleza vectorizada de pandas y NumPy brille.\n",
-        "\n",
-        "Las librerías \"altair\" y \"Pandas\" funcionan bien con datos ordenados. Aquí hay un par de pequeños ejemplos que muestran cómo podría trabajar con la tabla 1.\n"
-      ],
-      "id": "511c88ae"
-    },
-    {
-      "cell_type": "code",
-      "metadata": {},
-      "source": [
-        "import altair as alt\n",
-        "table1.assign(\n",
-        "    rate = lambda x: x.cases / x.population * 1000\n",
-        ")\n",
-        "\n",
-        "(table1.\n",
-        "  groupby('year').\n",
-        "  agg(n = ('cases', 'sum')).\n",
-        "  reset_index())\n",
-        "  \n",
-        "base_chart = (alt.Chart(table1).\n",
-        "  encode(alt.X('year'), alt.Y('cases'), detail = 'country'))\n",
-        "\n",
-        "chart = base_chart.mark_line() + base_chart.encode(color = 'country').mark_circle()\n",
-        "\n",
-        "chart"
-      ],
-      "id": "c879254a",
+      "id": "910ebb03",
       "execution_count": null,
       "outputs": []
     }
