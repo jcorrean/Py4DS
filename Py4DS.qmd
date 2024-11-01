@@ -2,9 +2,9 @@
 title: "Analítica de Proyectos"
 format: html
 keywords:
-  - Oferta Comercial de Estudios Universitarios
-  - Red Bipartita
-  - Modelos de Grafo Exponencial Aleatorio
+  - Analítica de datos
+  - Python y R
+  - Proyectos de Complejidad
 abstract: |
   Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, video, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. Este tutorial tiene como objetivo brindar un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.
 ---
@@ -15,8 +15,8 @@ abstract: |
 
 Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.
 
-1.  Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas.
-2.  Microsoft Project es un software licenciado (no libre) orientado al control de proyectos y no nos permite saber los pequeños cambios que pueden ocurrir en el transcurso de cualquier proyecto.
+1.  Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer Big Data)
+2.  Microsoft Project no nos permite saber los pequeños cambios que pueden ocurrir en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil a través de GitHub.
 3.  Ni Excel ni Project son útiles para analizar "datos no estructurados" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más ágil.
 4.  El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). Veamos algunas funcionalidades básicas en las llamadas ciencias de datos para entender cómo funciona Python. Una cruda realidad es que las personas encargadas de recolectar datos no son especialistas en estadística y por ello no suelen guardar los datos de una manera que sean directamente usables para fines analíticos. Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson [-@Hathaway2021] quienes se inspiraron en la "biblia" de la ciencia de datos escrita por Wickham y Grolemund [-@Wickham2017].
 
@@ -24,27 +24,74 @@ Hay varias razones que nos obligan a considerar otras opciones más allá de Exc
 
 Pandas es una librería para Python que está diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados.
 
-Las siguientes seis tablas contienen exactamente la misma información pero dicha info está dispuesta de manera diferente.
+Lo primero que vamos a hacer es un ejercicio de big data, descomprimiendo un total de 22 archivos comprimidos con data de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia [-@Garcia2022].
 
 ```{python}
-import pandas as pd
-import numpy as np
 import bz2
-import glob
+from pathlib import Path
 
-# Get a list of all .bz2 files in the directory
-file_list = glob.glob("*.bz2")
+def decompress_bz2_files(directory_path):
+    """Decompresses .bz2 files only if the corresponding CSV files don't exist.
 
-for file in file_list:
-    try:
-        with bz2.open(file, 'rb') as f:
-            # Start with a smaller chunksize to avoid memory issues
-            for chunk in pd.read_csv(f, chunksize=10000):
-                print(chunk.shape)  # Check if chunks are being processed
+    Args:
+        directory_path (str): Path to the directory containing .bz2 files.
+    """
 
-                # Save each chunk to a separate file
-                chunk.to_csv(f"chunk_{file}_{chunk.index[0]}.csv", index=False)
-    except Exception as e:  # Catch potential errors
-        print(f"Error processing file {file}: {e}")
+    for file in Path(directory_path).rglob('*.bz2'):
+        output_file = str(file).replace('.bz2', '')
+
+        # Check if the output CSV file already exists
+        if not Path(output_file).exists():
+            with bz2.open(file, 'rb') as bz_file:
+                decompressed_data = bz_file.read()
+
+            with open(output_file, 'wb') as out_file:
+                out_file.write(decompressed_data)
+            print(f"Decompressed: {file}")
+        else:
+            print(f"CSV file already exists: {output_file}")
+
+# Replace 'your_directory_path' with the actual path to your .bz2 files
+directory_path = '/home/jcc/dataverse_files'
+decompress_bz2_files(directory_path)
+```
+
+Una vez realizado lo anterior, ahora pasamos a abrir la data
+
+```{python}
+import pandas
+
+LOAD_COLS = 'Origin', 'Year', 'Month', 'DayofMonth', 'CRSDepTime', 'DepTime'
+
+df = pandas.concat((pandas.read_csv(f'/home/jcc/dataverse_files/{fname}.csv',
+                                    usecols=LOAD_COLS,
+                                    encoding_errors='ignore',
+                                    dtype={'Origin': 'category',
+                                           'Year': 'uint16',
+                                           'Month': 'uint8',
+                                           'DayofMonth': 'uint8',
+                                           'CRSDepTime': 'uint16',
+                                           'DepTime': 'UInt16'})
+                    for fname
+                    in range(1987, 2009)),
+                   ignore_index=True)
+
+date = pandas.to_datetime(df[['Year', 'Month', 'DayofMonth']].rename(columns={'DayofMonth': 'Day'}))
+
+df['scheduled_dep'] = date + pandas.to_timedelta((df['CRSDepTime'] // 100) * 60 + (df['CRSDepTime'] % 100),
+                                                 unit='minutes')
+df['actual_dep'] = date + pandas.to_timedelta((df['DepTime'] // 100) * 60 + (df['DepTime'] % 100),
+                                            unit='minutes')
+
+del date
+df = df[['Origin', 'scheduled_dep', 'actual_dep']]
+
+df['delay'] = (df['actual_dep'] - df['scheduled_dep']).dt.total_seconds() / 60 / 60
+
+df['delay'] = df['delay'].where(df['delay'] > - 2, 24 - df['delay'])
+
+df.head(5)
+filas = len(df)
+print(f'La base de datos tiene un total de {filas} filas.')
 ```
 
