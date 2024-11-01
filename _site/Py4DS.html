@@ -212,7 +212,7 @@ div.csl-indent {
 <h2 data-number="1.1" class="anchored" data-anchor-id="organización-de-datos-con-pandas"><span class="header-section-number">1.1</span> Organización de datos con Pandas</h2>
 <p>Pandas es una librería para Python que está diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados.</p>
 <p>Lo primero que vamos a hacer es un ejercicio de big data, descomprimiendo un total de 22 archivos comprimidos con data de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia <span class="citation" data-cites="Garcia2022">(<a href="#ref-Garcia2022" role="doc-biblioref">2022</a>)</span>.</p>
-<div id="d1b7676e" class="cell" data-execution_count="1">
+<div id="fcf3a8e9" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bz2</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -266,7 +266,7 @@ CSV file already exists: /home/jcc/dataverse_files/1990.csv</code></pre>
 </div>
 </div>
 <p>Una vez realizado lo anterior, ahora pasamos a abrir la data</p>
-<div id="6e69f2d3" class="cell" data-execution_count="2">
+<div id="7789fee4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>LOAD_COLS <span class="op">=</span> <span class="st">'Origin'</span>, <span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>, <span class="st">'CRSDepTime'</span>, <span class="st">'DepTime'</span></span>
