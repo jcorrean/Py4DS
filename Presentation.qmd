@@ -1,7 +1,9 @@
 ---
 title: "Untitled"
 author: "Juan C. Correa"
-format: beamer
+format: 
+  beamer:
+    aspectratio: 169
 ---
 
 # Warming up
