@@ -1,0 +1,9 @@
+---
+title: "Untitled"
+author: "Juan C. Correa"
+format: beamer
+---
+
+# Warming up
+- Turn off alarm
+- Get out of bed
