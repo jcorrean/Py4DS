@@ -1,10 +1,15 @@
 ---
 title: "Untitled"
-author: "Juan C. Correa"
+author: "[Juan C. Correa](https://orcid.org/0000-0002-0301-5641)"
 format: 
   beamer:
     aspectratio: 169
+    theme: Madrid
+    colortheme: lily
+    institute: "Critical Centrality Institute"
+    logo: "CC.png"
 ---
+
 
 # Warming up
 - Turn off alarm
