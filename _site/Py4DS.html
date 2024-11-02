@@ -212,95 +212,42 @@ div.csl-indent {
 <h2 data-number="1.1" class="anchored" data-anchor-id="organización-de-datos-con-pandas"><span class="header-section-number">1.1</span> Organización de datos con Pandas</h2>
 <p>Pandas es una librería para Python que está diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados.</p>
 <p>Lo primero que vamos a hacer es un ejercicio de big data, descomprimiendo un total de 22 archivos comprimidos con data de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia <span class="citation" data-cites="Garcia2022">(<a href="#ref-Garcia2022" role="doc-biblioref">2022</a>)</span>.</p>
-<div id="fcf3a8e9" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bz2</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> decompress_bz2_files(directory_path):</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Decompresses .bz2 files only if the corresponding CSV files don't exist.</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">        directory_path (str): Path to the directory containing .bz2 files.</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> Path(directory_path).rglob(<span class="st">'*.bz2'</span>):</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        output_file <span class="op">=</span> <span class="bu">str</span>(<span class="bu">file</span>).replace(<span class="st">'.bz2'</span>, <span class="st">''</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Check if the output CSV file already exists</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> Path(output_file).exists():</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> bz2.<span class="bu">open</span>(<span class="bu">file</span>, <span class="st">'rb'</span>) <span class="im">as</span> bz_file:</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                decompressed_data <span class="op">=</span> bz_file.read()</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> <span class="bu">open</span>(output_file, <span class="st">'wb'</span>) <span class="im">as</span> out_file:</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                out_file.write(decompressed_data)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Decompressed: </span><span class="sc">{</span><span class="bu">file</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"CSV file already exists: </span><span class="sc">{</span>output_file<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'your_directory_path' with the actual path to your .bz2 files</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>directory_path <span class="op">=</span> <span class="st">'/home/jcc/dataverse_files'</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>decompress_bz2_files(directory_path)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>CSV file already exists: /home/jcc/dataverse_files/2007.csv
-CSV file already exists: /home/jcc/dataverse_files/1995.csv
-CSV file already exists: /home/jcc/dataverse_files/1987.csv
-CSV file already exists: /home/jcc/dataverse_files/1996.csv
-CSV file already exists: /home/jcc/dataverse_files/2005.csv
-CSV file already exists: /home/jcc/dataverse_files/2006.csv
-CSV file already exists: /home/jcc/dataverse_files/1988.csv
-CSV file already exists: /home/jcc/dataverse_files/2002.csv
-CSV file already exists: /home/jcc/dataverse_files/2001.csv
-CSV file already exists: /home/jcc/dataverse_files/1992.csv
-CSV file already exists: /home/jcc/dataverse_files/2004.csv
-CSV file already exists: /home/jcc/dataverse_files/1991.csv
-CSV file already exists: /home/jcc/dataverse_files/1993.csv
-CSV file already exists: /home/jcc/dataverse_files/1994.csv
-CSV file already exists: /home/jcc/dataverse_files/1998.csv
-CSV file already exists: /home/jcc/dataverse_files/1997.csv
-CSV file already exists: /home/jcc/dataverse_files/1999.csv
-CSV file already exists: /home/jcc/dataverse_files/1989.csv
-CSV file already exists: /home/jcc/dataverse_files/2000.csv
-CSV file already exists: /home/jcc/dataverse_files/2003.csv
-CSV file already exists: /home/jcc/dataverse_files/2008.csv
-CSV file already exists: /home/jcc/dataverse_files/1990.csv</code></pre>
-</div>
-</div>
 <p>Una vez realizado lo anterior, ahora pasamos a abrir la data</p>
-<div id="7789fee4" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>LOAD_COLS <span class="op">=</span> <span class="st">'Origin'</span>, <span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>, <span class="st">'CRSDepTime'</span>, <span class="st">'DepTime'</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.concat((pandas.read_csv(<span class="ss">f'/home/jcc/dataverse_files/</span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">.csv'</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                    usecols<span class="op">=</span>LOAD_COLS,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                    encoding_errors<span class="op">=</span><span class="st">'ignore'</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                                    dtype<span class="op">=</span>{<span class="st">'Origin'</span>: <span class="st">'category'</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'Year'</span>: <span class="st">'uint16'</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'Month'</span>: <span class="st">'uint8'</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'DayofMonth'</span>: <span class="st">'uint8'</span>,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'CRSDepTime'</span>: <span class="st">'uint16'</span>,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'DepTime'</span>: <span class="st">'UInt16'</span>})</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">for</span> fname</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1987</span>, <span class="dv">2009</span>)),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                   ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> pandas.to_datetime(df[[<span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>]].rename(columns<span class="op">=</span>{<span class="st">'DayofMonth'</span>: <span class="st">'Day'</span>}))</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'scheduled_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'CRSDepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'CRSDepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                                                 unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'actual_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'DepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'DepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                                            unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> date</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">'Origin'</span>, <span class="st">'scheduled_dep'</span>, <span class="st">'actual_dep'</span>]]</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> (df[<span class="st">'actual_dep'</span>] <span class="op">-</span> df[<span class="st">'scheduled_dep'</span>]).dt.total_seconds() <span class="op">/</span> <span class="dv">60</span> <span class="op">/</span> <span class="dv">60</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> df[<span class="st">'delay'</span>].where(df[<span class="st">'delay'</span>] <span class="op">&gt;</span> <span class="op">-</span> <span class="dv">2</span>, <span class="dv">24</span> <span class="op">-</span> df[<span class="st">'delay'</span>])</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">5</span>)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>filas <span class="op">=</span> <span class="bu">len</span>(df)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'La base de datos tiene un total de </span><span class="sc">{</span>filas<span class="sc">}</span><span class="ss"> filas.'</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2adc2dc4" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>LOAD_COLS <span class="op">=</span> <span class="st">'Origin'</span>, <span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>, <span class="st">'CRSDepTime'</span>, <span class="st">'DepTime'</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.concat((pandas.read_csv(<span class="ss">f'/home/jcc/dataverse_files/</span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">.csv'</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                                    usecols<span class="op">=</span>LOAD_COLS,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                                    encoding_errors<span class="op">=</span><span class="st">'ignore'</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                    dtype<span class="op">=</span>{<span class="st">'Origin'</span>: <span class="st">'category'</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'Year'</span>: <span class="st">'uint16'</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'Month'</span>: <span class="st">'uint8'</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'DayofMonth'</span>: <span class="st">'uint8'</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'CRSDepTime'</span>: <span class="st">'uint16'</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'DepTime'</span>: <span class="st">'UInt16'</span>})</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">for</span> fname</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1987</span>, <span class="dv">2009</span>)),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                   ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> pandas.to_datetime(df[[<span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>]].rename(columns<span class="op">=</span>{<span class="st">'DayofMonth'</span>: <span class="st">'Day'</span>}))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'scheduled_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'CRSDepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'CRSDepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                                                 unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'actual_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'DepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'DepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                                            unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> date</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">'Origin'</span>, <span class="st">'scheduled_dep'</span>, <span class="st">'actual_dep'</span>]]</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> (df[<span class="st">'actual_dep'</span>] <span class="op">-</span> df[<span class="st">'scheduled_dep'</span>]).dt.total_seconds() <span class="op">/</span> <span class="dv">60</span> <span class="op">/</span> <span class="dv">60</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> df[<span class="st">'delay'</span>].where(df[<span class="st">'delay'</span>] <span class="op">&gt;</span> <span class="op">-</span> <span class="dv">2</span>, <span class="dv">24</span> <span class="op">-</span> df[<span class="st">'delay'</span>])</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">5</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>filas <span class="op">=</span> <span class="bu">len</span>(df)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'La base de datos tiene un total de </span><span class="sc">{</span>filas<span class="sc">}</span><span class="ss"> filas.'</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>La base de datos tiene un total de 118914458 filas.</code></pre>
 </div>
