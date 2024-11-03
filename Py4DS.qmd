@@ -5,27 +5,29 @@ keywords:
   - Analítica de datos
   - Python y R
   - Proyectos de Complejidad
+  - GitHub
 abstract: |
-  Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, videos, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. En este blog se muestra un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.
+  Nuestro planeta enfrenta problemas de gran complejidad. Por ejemplo, el calentamiento global requiere soluciones donde se combinen conocimientos de varias disciplinas profesionales tales como la geofísica, la ingeniería, la computación, y la gerencia de proyectos. Frente a este tipo problemas, es obvio pensar que necesitamos aprender a usar otras herramientas que vayan mucho más allá de lo que hemos aprendido con Microsoft Excel y Microsoft Project. En este blog tendrás un panorama práctico de cómo se integran herramientas de analítica de datos (Python y R) a la gestión y control de proyectos.
 ---
 
-
+La Ciencia de Datos [@Hathaway2021] y la Inteligencia Artificial [@Russell2022] tienen el potencial de revolucionar la forma cómo trabajamos y resolvemos problemas de gran complejidad. <iframe width="100%" height="400" src="https://www.youtube.com/embed/KUSyzxv3wfo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+Con este blog (el primero de una serie), intentaré ilustrar por qué Python y R (junto a GitHub) son las herramientas fundamentales para aquellos que tengan la responsabilidad de dirigir o gerenciar equipos multidisciplinarios. 
 
 # ¿Por qué Python y R para la gestión de proyectos?
+
 
 Hay varias razones de peso para considerar otras opciones más allá de Excel y de Microsoft Project para gestionar proyectos. A continuación algunas de ellas.
 
 
-1. La Ciencia de Datos [@Hathaway2021] y la Inteligencia Artificial [@Russell2022] tienen el potencial de revolucionar la forma cómo trabajamos y resolvemos problemas de gran complejidad.
-2. La ciencia de datos y la inteligencia artificial no trabajan con herramientas de escritorio como las ofrecidas por Microsoft Office (i.e., Word, Excel, PowerPoint) debido a las llamadas 4Vs: Veracidad, Variabilidad, Volumen, y Velocidad con la que se producen los datos en el mundo real [@Provost2013]. 
-3.  Excel es limitado a la hora abrir archivos con datos de gran volumen que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer "Big Data")
-4.  Con Microsoft Project no podemos saber los pequeños cambios que ocurrieron en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil usando una potente herramienta llamada GitHub.
-5.  Ni Excel ni Project son útiles para analizar "datos no estructurados" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más versátil y ágil. Sobre ello hablaremos más en detalle en un próximo blog sobre [HuggingFace](https://huggingface.co/)
-6.  El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). 
+1. La ciencia de datos y la inteligencia artificial no trabajan con herramientas de escritorio como las ofrecidas por Microsoft Office (i.e., Word, Excel, PowerPoint) debido a las llamadas 4Vs: Veracidad, Variabilidad, Volumen, y Velocidad con la que se producen los datos en el mundo real [@Provost2013]. 
+2.  Excel es limitado a la hora abrir archivos con datos de gran volumen que están en el orden de los millones de filas o columnas (e.g., Excel no sirve para hacer "Big Data")
+3.  Con Microsoft Project no podemos saber los pequeños cambios que ocurrieron en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil usando una potente herramienta llamada GitHub.
+4.  Ni Excel ni Project son útiles para analizar "datos no estructurados" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más versátil y ágil. Sobre ello hablaremos más en detalle en un próximo blog sobre [HuggingFace](https://huggingface.co/)
+5.  El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). 
 
 Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson [-@Hathaway2021] quienes se inspiraron en la "biblia" de la ciencia de datos escrita por Wickham y Grolemund [-@Wickham2017].
 
-## Extracción, Transformación y Carga de Datos Estructurados
+# Extracción, Transformación y Carga de Datos Estructurados
 
 La extracción, transformación y carga de datos estructurados en inglés se abrevia con las siglas "ETL" ("extraction, transformation and loading"). ETL es un ejercicio muy típico en tareas de big data sobre las cuales se apoyan rutinariamente aplicaciones de inteligencia artificial tales como el aprendizaje automático. La sintaxis que veremos a continuación nos permite abrir un total de 22 archivos separados por comas (.csv) con datos de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia [-@Garcia2022]. Para ello, nos vamos a apoyar en "pandas" la cual es una librería muy conocida dentro de Python.
 
