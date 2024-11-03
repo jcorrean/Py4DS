@@ -145,6 +145,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#extracción-transformación-y-carga-de-datos-estructurados" id="toc-extracción-transformación-y-carga-de-datos-estructurados" class="nav-link" data-scroll-target="#extracción-transformación-y-carga-de-datos-estructurados"><span class="header-section-number">1.1</span> Extracción, Transformación y Carga de Datos Estructurados</a></li>
   </ul></li>
+  <li><a href="#preguntas-de-profundización" id="toc-preguntas-de-profundización" class="nav-link" data-scroll-target="#preguntas-de-profundización"><span class="header-section-number">2</span> Preguntas de profundización</a></li>
   </ul>
 </nav>
     </div>
@@ -188,7 +189,7 @@ div.csl-indent {
 <div>
   <div class="abstract">
     <div class="block-title">Resumen</div>
-    <p>Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, video, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. Este tutorial tiene como objetivo brindar un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.</p>
+    <p>Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, videos, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. En este blog se muestra un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.</p>
   </div>
 </div>
 
@@ -204,11 +205,13 @@ div.csl-indent {
 
 <section id="por-qué-python-y-r-para-la-gestión-de-proyectos" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> ¿Por qué Python y R para la gestión de proyectos?</h1>
-<p>Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.</p>
+<p>Hay varias razones de peso para considerar otras opciones más allá de Excel y de Microsoft Project para gestionar proyectos. A continuación algunas de ellas.</p>
 <ol type="1">
-<li>Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer “Big Data”)</li>
-<li>Con Microsoft Project no podemos saber los pequeños cambios que ocurrieron en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil usando GitHub.</li>
-<li>Ni Excel ni Project son útiles para analizar “datos no estructurados” tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más versátil y ágil.</li>
+<li>La Ciencia de Datos <span class="citation" data-cites="Hathaway2021">(<a href="#ref-Hathaway2021" role="doc-biblioref">Hathaway y Larson 2021</a>)</span> y la Inteligencia Artificial <span class="citation" data-cites="Russell2022">(<a href="#ref-Russell2022" role="doc-biblioref">Russell y Norvig 2022</a>)</span> tienen el potencial de revolucionar la forma cómo trabajamos y resolvemos problemas de gran complejidad.</li>
+<li>La ciencia de datos y la inteligencia artificial no trabajan con herramientas de escritorio como las ofrecidas por Microsoft Office (i.e., Word, Excel, PowerPoint) debido a las llamadas 4Vs: Veracidad, Variabilidad, Volumen, y Velocidad con la que se producen los datos en el mundo real <span class="citation" data-cites="Provost2013">(<a href="#ref-Provost2013" role="doc-biblioref">Provost y Fawcett 2013</a>)</span>.</li>
+<li>Excel es limitado a la hora abrir archivos con datos de gran volumen que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer “Big Data”)</li>
+<li>Con Microsoft Project no podemos saber los pequeños cambios que ocurrieron en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil usando una potente herramienta llamada GitHub.</li>
+<li>Ni Excel ni Project son útiles para analizar “datos no estructurados” tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más versátil y ágil. Sobre ello hablaremos más en detalle en un próximo blog sobre <a href="https://huggingface.co/">HuggingFace</a></li>
 <li>El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning).</li>
 </ol>
 <p>Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson <span class="citation" data-cites="Hathaway2021">(<a href="#ref-Hathaway2021" role="doc-biblioref">2021</a>)</span> quienes se inspiraron en la “biblia” de la ciencia de datos escrita por Wickham y Grolemund <span class="citation" data-cites="Wickham2017">(<a href="#ref-Wickham2017" role="doc-biblioref">2017</a>)</span>.</p>
@@ -222,39 +225,37 @@ div.csl-indent {
 </figure>
 </div>
 <p>Además de pandas, vamos a usar otras librerías como “importlib” y “pyarrow” para acortar el tiempo que nos tomará abrir los siguientes datos.</p>
-<div id="2f3b5750" class="cell" data-execution_count="1">
+<div id="d945e38b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pandas</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pyarrow</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pyarrow.csv</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    COLUMN_TYPES <span class="op">=</span> {<span class="st">'Origin'</span>: pyarrow.dictionary(pyarrow.int32(), pyarrow.string()),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Year'</span>: pyarrow.uint16(),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Month'</span>: pyarrow.uint8(),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'DayofMonth'</span>: pyarrow.uint8(),</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'CRSDepTime'</span>: pyarrow.uint16(),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'DepTime'</span>: pyarrow.uint16()}</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    tables <span class="op">=</span> []</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> year <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1987</span>, <span class="dv">2009</span>):</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        tables.append(pyarrow.csv.read_csv(</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'/home/jcc/dataverse_files/</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.csv'</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            convert_options<span class="op">=</span>pyarrow.csv.ConvertOptions(</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                include_columns<span class="op">=</span>COLUMN_TYPES,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                column_types<span class="op">=</span>COLUMN_TYPES)))</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pyarrow.concat_tables(tables).to_pandas()</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># PyArrow is not installed, handle the situation appropriately</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"PyArrow is not installed. Please install it using 'pip install pyarrow'"</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># You might consider alternative approaches like using Pandas or Dask for CSV reading and processing.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pandas</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pyarrow</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pyarrow.csv</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    COLUMN_TYPES <span class="op">=</span> {<span class="st">'Origin'</span>: pyarrow.dictionary(pyarrow.int32(), pyarrow.string()),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Year'</span>: pyarrow.uint16(),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Month'</span>: pyarrow.uint8(),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'DayofMonth'</span>: pyarrow.uint8(),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'CRSDepTime'</span>: pyarrow.uint16(),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'DepTime'</span>: pyarrow.uint16()}</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    tables <span class="op">=</span> []</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> year <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1987</span>, <span class="dv">2009</span>):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        tables.append(pyarrow.csv.read_csv(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'/home/jcc/dataverse_files/</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.csv'</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            convert_options<span class="op">=</span>pyarrow.csv.ConvertOptions(</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                include_columns<span class="op">=</span>COLUMN_TYPES,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                column_types<span class="op">=</span>COLUMN_TYPES)))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pyarrow.concat_tables(tables).to_pandas()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Si la librería pyarrow no está instalada, primero asegúrese de instalarla</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"PyArrow no está instalado, Por favor, instala pyarrow escribiendo 'pip install pyarrow'"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Los datos que hemos abierto, tienen la siguiente apariencia</p>
-<div id="21307aee" class="cell" data-execution_count="2">
+<div id="a21fdbae" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
@@ -325,7 +326,7 @@ div.csl-indent {
 </div>
 </div>
 <p>Podemos hacer algunos pequeños cambios a la base de datos de la siguiente manera</p>
-<div id="f05e55b0" class="cell" data-execution_count="3">
+<div id="65a5fd7c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> pandas.to_datetime(df[[<span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>]].rename(columns<span class="op">=</span>{<span class="st">'DayofMonth'</span>: <span class="st">'Day'</span>}))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'scheduled_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'CRSDepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'CRSDepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
@@ -396,11 +397,22 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas.</p>
-
-
-
+<p>Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas. A continuación te comparto algunas preguntas sugeridas para que prodfundices en tu aprendizaje sobre la analítica de datos.</p>
 </section>
+</section>
+<section id="preguntas-de-profundización" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Preguntas de profundización</h1>
+<ol type="1">
+<li>¿Qué hace la librería importlib y en qué se diferencia de pandas?</li>
+<li>¿Exactamente qué se hizo para cambiar la base de datos que originalmente tenía seis variables para tener tan solo cuatro?</li>
+<li>¿Cuán relevante sería aprender sobre más herramientas de Big Data para industrias como el comercio y las ventas de consumo masivo?</li>
+<li>¿Qué otras opciones podemos seguir para abrir y transformar los datos que hemos usado como ejemplo en este blog (puedes consultar el propio blog de Marc Garcia <span class="citation" data-cites="Garcia2022">(<a href="#ref-Garcia2022" role="doc-biblioref">2022</a>)</span>).</li>
+<li>¿Qué deberíamos cambiar en las sintaxis para incorporar otras variables como la ciudad de destino, la distancia recorrida, el tiempo de cada vuelo, y la hora de llegada a la ciudad de destino?</li>
+</ol>
+<p>En un próximo blog, vamos a enfocarnos en la minería de datos y cómo Python y R nos pueden ayudar a analizar estadísticamente datos no estructurados.</p>
+
+
+
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -409,6 +421,12 @@ Garcia, M. 2022. <span>«pandas with hundreds of millions of rows»</span>. <a h
 </div>
 <div id="ref-Hathaway2021" class="csl-entry" role="listitem">
 Hathaway, J., y K. Larson. 2021. <em><span>Python for Data Science</span></em>. GitHub. <a href="https://byuidatascience.github.io/python4ds/">https://byuidatascience.github.io/python4ds/</a>.
+</div>
+<div id="ref-Provost2013" class="csl-entry" role="listitem">
+Provost, F., y T. Fawcett. 2013. <em>Data Science for Business</em>. California: O’Reilly.
+</div>
+<div id="ref-Russell2022" class="csl-entry" role="listitem">
+Russell, S., y P. Norvig. 2022. <em>Artificial Intelligence: A Modern Approach</em>. Pearson Education.
 </div>
 <div id="ref-Wickham2017" class="csl-entry" role="listitem">
 Wickham, H., y G. Grolemund. 2017. <em><span>R for Data Science</span></em>. New York: O’Reilly.
