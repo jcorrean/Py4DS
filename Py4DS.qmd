@@ -6,19 +6,22 @@ keywords:
   - Python y R
   - Proyectos de Complejidad
 abstract: |
-  Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, videos, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. Este tutorial tiene como objetivo brindar un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.
+  Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, videos, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. En este blog se muestra un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.
 ---
 
 
 
 # ¿Por qué Python y R para la gestión de proyectos?
 
-Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.
+Hay varias razones de peso para considerar otras opciones más allá de Excel y de Microsoft Project para gestionar proyectos. A continuación algunas de ellas.
 
-1.  Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer "Big Data")
-2.  Con Microsoft Project no podemos saber los pequeños cambios que ocurrieron en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil usando GitHub.
-3.  Ni Excel ni Project son útiles para analizar "datos no estructurados" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más versátil y ágil.
-4.  El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). 
+
+1. La Ciencia de Datos [@Hathaway2021] y la Inteligencia Artificial [@Russell2022] tienen el potencial de revolucionar la forma cómo trabajamos y resolvemos problemas de gran complejidad.
+2. La ciencia de datos y la inteligencia artificial no trabajan con herramientas de escritorio como las ofrecidas por Microsoft Office (i.e., Word, Excel, PowerPoint) debido a las llamadas 4Vs: Veracidad, Variabilidad, Volumen, y Velocidad con la que se producen los datos en el mundo real [@Provost2013]. 
+3.  Excel es limitado a la hora abrir archivos con datos de gran volumen que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer "Big Data")
+4.  Con Microsoft Project no podemos saber los pequeños cambios que ocurrieron en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil usando una potente herramienta llamada GitHub.
+5.  Ni Excel ni Project son útiles para analizar "datos no estructurados" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más versátil y ágil. Sobre ello hablaremos más en detalle en un próximo blog sobre [HuggingFace](https://huggingface.co/)
+6.  El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). 
 
 Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson [-@Hathaway2021] quienes se inspiraron en la "biblia" de la ciencia de datos escrita por Wickham y Grolemund [-@Wickham2017].
 
@@ -35,7 +38,6 @@ Además de pandas, vamos a usar otras librerías como "importlib" y "pyarrow" pa
 
 ```{python}
 import importlib
-
 
 try:
     import pandas
@@ -60,9 +62,8 @@ try:
     df = pyarrow.concat_tables(tables).to_pandas()
     
 except ImportError:
-    # PyArrow is not installed, handle the situation appropriately
-    print("PyArrow is not installed. Please install it using 'pip install pyarrow'")
-    # You might consider alternative approaches like using Pandas or Dask for CSV reading and processing.
+    # Si la librería pyarrow no está instalada, primero asegúrese de instalarla
+    print("PyArrow no está instalado, Por favor, instala pyarrow escribiendo 'pip install pyarrow'")
 ```
 
 Los datos que hemos abierto, tienen la siguiente apariencia
@@ -90,5 +91,14 @@ df['delay'] = df['delay'].where(df['delay'] > - 2, 24 - df['delay'])
 df.tail(5)
 ```
 
-Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas  y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas. 
+Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas  y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas. A continuación te comparto algunas preguntas sugeridas para que prodfundices en tu aprendizaje sobre la analítica de datos.
 
+# Preguntas de profundización
+
+1. ¿Qué hace la librería importlib y en qué se diferencia de pandas?
+2. ¿Exactamente qué se hizo para cambiar la base de datos que originalmente tenía seis variables para tener tan solo cuatro?
+3. ¿Cuán relevante sería aprender sobre más herramientas de Big Data para industrias como el comercio y las ventas de consumo masivo?
+4. ¿Qué otras opciones podemos seguir para abrir y transformar los datos que hemos usado como ejemplo en este blog (puedes consultar el propio blog de Marc Garcia [-@Garcia2022]).
+5. ¿Qué deberíamos cambiar en las sintaxis para incorporar otras variables como la ciudad de destino, la distancia recorrida, el tiempo de cada vuelo, y la hora de llegada a la ciudad de destino?
+
+En un próximo blog, vamos a enfocarnos en la minería de datos y cómo Python y R nos pueden ayudar a analizar estadísticamente datos no estructurados.
