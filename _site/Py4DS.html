@@ -79,7 +79,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -121,9 +121,6 @@ div.csl-indent {
     "search-label": "Buscar"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -187,7 +184,7 @@ div.csl-indent {
 <div>
   <div class="abstract">
     <div class="block-title">Resumen</div>
-    <p>Nuestro planeta enfrenta problemas de gran complejidad. Por ejemplo, el calentamiento global requiere soluciones donde se combinen conocimientos de varias disciplinas profesionales tales como la geofísica, la ingeniería, la computación, y la gerencia de proyectos. Frente a este tipo problemas, es obvio pensar que necesitamos aprender a usar otras herramientas que vayan mucho más allá de lo que hemos aprendido con Microsoft Excel y Microsoft Project. En este blog tendrás un panorama práctico de cómo se integran herramientas de analítica de datos (Python y R) a la gestión y control de proyectos.</p>
+    <p>Nuestro planeta enfrenta problemas de gran complejidad. Por ejemplo, las soluciones al calentamiento global probablemente necesiten la combinación de varias disciplinas profesionales tales como la geofísica, la ingeniería, y la computación. Con estos desafíos, es evidente la importancia de aprender otras herramientas que vayan mucho más allá de lo que hemos aprendido con Microsoft Excel y Microsoft Project. En este blog tendrás un panorama práctico de cómo se integran herramientas de analítica de datos (Python y R) a la gestión y control de proyectos.</p>
   </div>
 </div>
 
@@ -216,7 +213,7 @@ div.csl-indent {
 </section>
 <section id="extracción-transformación-y-carga-de-datos-estructurados" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Extracción, Transformación y Carga de Datos Estructurados</h1>
-<p>La extracción, transformación y carga de datos estructurados en inglés se abrevia con las siglas “ETL” (“extraction, transformation and loading”). ETL es un ejercicio muy típico en tareas de big data sobre las cuales se apoyan rutinariamente aplicaciones de inteligencia artificial tales como el aprendizaje automático. La sintaxis que veremos a continuación nos permite abrir un total de 22 archivos separados por comas (.csv) con datos de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia <span class="citation" data-cites="Garcia2022">(<a href="#ref-Garcia2022" role="doc-biblioref">2022</a>)</span>. Para ello, nos vamos a apoyar en “pandas” la cual es una librería muy conocida dentro de Python.</p>
+<p>La extracción, transformación y carga de datos estructurados en inglés se abrevia con las siglas “ETL” (“<strong>E</strong>xtraction, <strong>T</strong>ransformation and <strong>L</strong>oading”). ETL es un ejercicio muy típico en tareas de big data sobre las cuales se apoyan rutinariamente aplicaciones de inteligencia artificial tales como el aprendizaje automático. La sintaxis que veremos a continuación nos permite abrir un total de 22 archivos separados por comas (.csv) con datos de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia <span class="citation" data-cites="Garcia2022">(<a href="#ref-Garcia2022" role="doc-biblioref">2022</a>)</span>. Para ello, nos vamos a apoyar en “pandas” la cual es una librería muy conocida dentro de Python.</p>
 <p>Esta librería fue diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados. Por datos estructurados vamos a comprender una tabla en donde las variables que nos interesa analizar se ordenan por columnas, las observaciones de cada variable se ordenan por filas, y los valores de cada observación para cada variable se registran en cada celda, tal como aparece en la siguiente imágen.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -224,7 +221,7 @@ div.csl-indent {
 </figure>
 </div>
 <p>Además de pandas, vamos a usar otras librerías como “importlib” y “pyarrow” para acortar el tiempo que nos tomará abrir los siguientes datos.</p>
-<div id="985789b9" class="cell" data-execution_count="1">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
@@ -254,149 +251,59 @@ div.csl-indent {
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"PyArrow no está instalado, Por favor, instala pyarrow escribiendo 'pip install pyarrow'"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Los datos que hemos abierto, tienen la siguiente apariencia</p>
-<div id="98ce428d" class="cell" data-execution_count="2">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Origin</th>
-<th data-quarto-table-cell-role="th">Year</th>
-<th data-quarto-table-cell-role="th">Month</th>
-<th data-quarto-table-cell-role="th">DayofMonth</th>
-<th data-quarto-table-cell-role="th">CRSDepTime</th>
-<th data-quarto-table-cell-role="th">DepTime</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>SAN</td>
-<td>1987</td>
-<td>10</td>
-<td>14</td>
-<td>730</td>
-<td>741.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>SAN</td>
-<td>1987</td>
-<td>10</td>
-<td>15</td>
-<td>730</td>
-<td>729.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>SAN</td>
-<td>1987</td>
-<td>10</td>
-<td>17</td>
-<td>730</td>
-<td>741.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>SAN</td>
-<td>1987</td>
-<td>10</td>
-<td>18</td>
-<td>730</td>
-<td>729.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>SAN</td>
-<td>1987</td>
-<td>10</td>
-<td>19</td>
-<td>730</td>
-<td>749.0</td>
-</tr>
-</tbody>
-</table>
-
-</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Origin  Year  Month  DayofMonth  CRSDepTime  DepTime
+0    SAN  1987     10          14         730    741.0
+1    SAN  1987     10          15         730    729.0
+2    SAN  1987     10          17         730    741.0
+3    SAN  1987     10          18         730    729.0
+4    SAN  1987     10          19         730    749.0</code></pre>
 </div>
 </div>
 <p>Podemos hacer algunos pequeños cambios a la base de datos de la siguiente manera</p>
-<div id="e0ca73ff" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> pandas.to_datetime(df[[<span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>]].rename(columns<span class="op">=</span>{<span class="st">'DayofMonth'</span>: <span class="st">'Day'</span>}))</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'scheduled_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'CRSDepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'CRSDepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                                 unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'actual_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'DepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'DepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                            unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> date</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">'Origin'</span>, <span class="st">'scheduled_dep'</span>, <span class="st">'actual_dep'</span>]]</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> (df[<span class="st">'actual_dep'</span>] <span class="op">-</span> df[<span class="st">'scheduled_dep'</span>]).dt.total_seconds() <span class="op">/</span> <span class="dv">60</span> <span class="op">/</span> <span class="dv">60</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> df[<span class="st">'delay'</span>].where(df[<span class="st">'delay'</span>] <span class="op">&gt;</span> <span class="op">-</span> <span class="dv">2</span>, <span class="dv">24</span> <span class="op">-</span> df[<span class="st">'delay'</span>])</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df.tail(<span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> pandas.to_datetime(df[[<span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>]].rename(columns<span class="op">=</span>{<span class="st">'DayofMonth'</span>: <span class="st">'Day'</span>}))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'scheduled_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'CRSDepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'CRSDepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                                 unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'actual_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'DepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'DepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                            unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> date</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">'Origin'</span>, <span class="st">'scheduled_dep'</span>, <span class="st">'actual_dep'</span>]]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> (df[<span class="st">'actual_dep'</span>] <span class="op">-</span> df[<span class="st">'scheduled_dep'</span>]).dt.total_seconds() <span class="op">/</span> <span class="dv">60</span> <span class="op">/</span> <span class="dv">60</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> df[<span class="st">'delay'</span>].where(df[<span class="st">'delay'</span>] <span class="op">&gt;</span> <span class="op">-</span> <span class="dv">2</span>, <span class="dv">24</span> <span class="op">-</span> df[<span class="st">'delay'</span>])</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>df.tail(<span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          Origin       scheduled_dep          actual_dep     delay
+118914453    BOS 2008-04-17 10:25:00 2008-04-17 10:25:00  0.000000
+118914454    CVG 2008-04-17 13:20:00 2008-04-17 13:19:00 -0.016667
+118914455    BOS 2008-04-17 13:35:00 2008-04-17 13:35:00  0.000000
+118914456    CVG 2008-04-17 19:35:00 2008-04-17 19:33:00 -0.033333
+118914457    BWI 2008-04-17 06:15:00 2008-04-17 06:21:00  0.100000</code></pre>
+</div>
+</div>
+<p>Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas. Dentro de este mismo blog, podemos incluso combinar códigos de diferentes lenguajes. Por ejemplo, la siguiente sintaxis ya no está en lenguaje de Python, sino en lenguaje de R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Asegúrate de que el entorno de Python esté cargado correctamente</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"~/anaconda3/bin/python3.12"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> py<span class="sc">$</span>df</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>delay)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 <div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Origin</th>
-<th data-quarto-table-cell-role="th">scheduled_dep</th>
-<th data-quarto-table-cell-role="th">actual_dep</th>
-<th data-quarto-table-cell-role="th">delay</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">118914453</td>
-<td>BOS</td>
-<td>2008-04-17 10:25:00</td>
-<td>2008-04-17 10:25:00</td>
-<td>0.000000</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">118914454</td>
-<td>CVG</td>
-<td>2008-04-17 13:20:00</td>
-<td>2008-04-17 13:19:00</td>
-<td>-0.016667</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">118914455</td>
-<td>BOS</td>
-<td>2008-04-17 13:35:00</td>
-<td>2008-04-17 13:35:00</td>
-<td>0.000000</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">118914456</td>
-<td>CVG</td>
-<td>2008-04-17 19:35:00</td>
-<td>2008-04-17 19:33:00</td>
-<td>-0.033333</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">118914457</td>
-<td>BWI</td>
-<td>2008-04-17 06:15:00</td>
-<td>2008-04-17 06:21:00</td>
-<td>0.100000</td>
-</tr>
-</tbody>
-</table>
-
+<figure class="figure">
+<p><img src="Py4DS_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
 </div>
-<p>Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas. A continuación te comparto algunas preguntas sugeridas para que prodfundices en tu aprendizaje sobre la analítica de datos.</p>
+<p>A continuación te comparto algunas preguntas sugeridas para que profundices en tu aprendizaje sobre la analítica de datos.</p>
 </section>
 <section id="preguntas-de-profundización" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Preguntas de profundización</h1>

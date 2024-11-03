@@ -7,7 +7,7 @@ keywords:
   - Proyectos de Complejidad
   - GitHub
 abstract: |
-  Nuestro planeta enfrenta problemas de gran complejidad. Por ejemplo, el calentamiento global requiere soluciones donde se combinen conocimientos de varias disciplinas profesionales tales como la geofísica, la ingeniería, la computación, y la gerencia de proyectos. Frente a este tipo problemas, es obvio pensar que necesitamos aprender a usar otras herramientas que vayan mucho más allá de lo que hemos aprendido con Microsoft Excel y Microsoft Project. En este blog tendrás un panorama práctico de cómo se integran herramientas de analítica de datos (Python y R) a la gestión y control de proyectos.
+  Nuestro planeta enfrenta problemas de gran complejidad. Por ejemplo, las soluciones al calentamiento global probablemente necesiten la combinación de varias disciplinas profesionales tales como la geofísica, la ingeniería, y la computación. Con estos desafíos, es evidente la importancia de aprender otras herramientas que vayan mucho más allá de lo que hemos aprendido con Microsoft Excel y Microsoft Project. En este blog tendrás un panorama práctico de cómo se integran herramientas de analítica de datos (Python y R) a la gestión y control de proyectos.
 ---
 
 La Ciencia de Datos [@Hathaway2021] y la Inteligencia Artificial [@Russell2022] tienen el potencial de revolucionar la forma cómo trabajamos y resolvemos problemas de gran complejidad. <iframe width="100%" height="400" src="https://www.youtube.com/embed/KUSyzxv3wfo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -29,7 +29,7 @@ Parte de lo que veremos en las próximas subsecciones está tomado del libro de 
 
 # Extracción, Transformación y Carga de Datos Estructurados
 
-La extracción, transformación y carga de datos estructurados en inglés se abrevia con las siglas "ETL" ("extraction, transformation and loading"). ETL es un ejercicio muy típico en tareas de big data sobre las cuales se apoyan rutinariamente aplicaciones de inteligencia artificial tales como el aprendizaje automático. La sintaxis que veremos a continuación nos permite abrir un total de 22 archivos separados por comas (.csv) con datos de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia [-@Garcia2022]. Para ello, nos vamos a apoyar en "pandas" la cual es una librería muy conocida dentro de Python.
+La extracción, transformación y carga de datos estructurados en inglés se abrevia con las siglas "ETL" ("**E**xtraction, **T**ransformation and **L**oading"). ETL es un ejercicio muy típico en tareas de big data sobre las cuales se apoyan rutinariamente aplicaciones de inteligencia artificial tales como el aprendizaje automático. La sintaxis que veremos a continuación nos permite abrir un total de 22 archivos separados por comas (.csv) con datos de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia [-@Garcia2022]. Para ello, nos vamos a apoyar en "pandas" la cual es una librería muy conocida dentro de Python.
 
 Esta librería fue diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados. Por datos estructurados vamos a comprender una tabla en donde las variables que nos interesa analizar se ordenan por columnas, las observaciones de cada variable se ordenan por filas, y los valores de cada observación para cada variable se registran en cada celda, tal como aparece en la siguiente imágen.
 
@@ -93,7 +93,19 @@ df['delay'] = df['delay'].where(df['delay'] > - 2, 24 - df['delay'])
 df.tail(5)
 ```
 
-Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas  y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas. A continuación te comparto algunas preguntas sugeridas para que prodfundices en tu aprendizaje sobre la analítica de datos.
+Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas. Dentro de este mismo blog, podemos incluso combinar códigos de diferentes lenguajes. Por ejemplo, la siguiente sintaxis ya no está en lenguaje de Python, sino en lenguaje de R. 
+
+```{r}
+library(reticulate)
+# Asegúrate de que el entorno de Python esté cargado correctamente
+use_python("~/anaconda3/bin/python3.12")
+
+df <- py$df
+hist(df$delay)
+```
+
+A continuación te comparto algunas preguntas sugeridas para que profundices en tu aprendizaje sobre la analítica de datos.
+
 
 # Preguntas de profundización
 
