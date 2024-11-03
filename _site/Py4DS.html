@@ -79,7 +79,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -121,6 +121,9 @@ div.csl-indent {
     "search-label": "Buscar"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -140,7 +143,7 @@ div.csl-indent {
   <ul>
   <li><a href="#por-qué-python-y-r-para-la-gestión-de-proyectos" id="toc-por-qué-python-y-r-para-la-gestión-de-proyectos" class="nav-link active" data-scroll-target="#por-qué-python-y-r-para-la-gestión-de-proyectos"><span class="header-section-number">1</span> ¿Por qué Python y R para la gestión de proyectos?</a>
   <ul class="collapse">
-  <li><a href="#organización-de-datos-con-pandas" id="toc-organización-de-datos-con-pandas" class="nav-link" data-scroll-target="#organización-de-datos-con-pandas"><span class="header-section-number">1.1</span> Organización de datos con Pandas</a></li>
+  <li><a href="#extracción-transformación-y-carga-de-datos-estructurados" id="toc-extracción-transformación-y-carga-de-datos-estructurados" class="nav-link" data-scroll-target="#extracción-transformación-y-carga-de-datos-estructurados"><span class="header-section-number">1.1</span> Extracción, Transformación y Carga de Datos Estructurados</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -203,55 +206,197 @@ div.csl-indent {
 <h1 data-number="1"><span class="header-section-number">1</span> ¿Por qué Python y R para la gestión de proyectos?</h1>
 <p>Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.</p>
 <ol type="1">
-<li>Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer Big Data)</li>
-<li>Microsoft Project no nos permite saber los pequeños cambios que pueden ocurrir en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil a través de GitHub.</li>
-<li>Ni Excel ni Project son útiles para analizar “datos no estructurados” tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más ágil.</li>
-<li>El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). Veamos algunas funcionalidades básicas en las llamadas ciencias de datos para entender cómo funciona Python. Una cruda realidad es que las personas encargadas de recolectar datos no son especialistas en estadística y por ello no suelen guardar los datos de una manera que sean directamente usables para fines analíticos. Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson <span class="citation" data-cites="Hathaway2021">(<a href="#ref-Hathaway2021" role="doc-biblioref">2021</a>)</span> quienes se inspiraron en la “biblia” de la ciencia de datos escrita por Wickham y Grolemund <span class="citation" data-cites="Wickham2017">(<a href="#ref-Wickham2017" role="doc-biblioref">2017</a>)</span>.</li>
+<li>Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer “Big Data”)</li>
+<li>Con Microsoft Project no podemos saber los pequeños cambios que ocurrieron en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil usando GitHub.</li>
+<li>Ni Excel ni Project son útiles para analizar “datos no estructurados” tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más versátil y ágil.</li>
+<li>El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning).</li>
 </ol>
-<section id="organización-de-datos-con-pandas" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="organización-de-datos-con-pandas"><span class="header-section-number">1.1</span> Organización de datos con Pandas</h2>
-<p>Pandas es una librería para Python que está diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados.</p>
-<p>Lo primero que vamos a hacer es un ejercicio de big data, descomprimiendo un total de 22 archivos comprimidos con data de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia <span class="citation" data-cites="Garcia2022">(<a href="#ref-Garcia2022" role="doc-biblioref">2022</a>)</span>.</p>
-<p>Una vez realizado lo anterior, ahora pasamos a abrir la data</p>
-<div id="2adc2dc4" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<p>Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson <span class="citation" data-cites="Hathaway2021">(<a href="#ref-Hathaway2021" role="doc-biblioref">2021</a>)</span> quienes se inspiraron en la “biblia” de la ciencia de datos escrita por Wickham y Grolemund <span class="citation" data-cites="Wickham2017">(<a href="#ref-Wickham2017" role="doc-biblioref">2017</a>)</span>.</p>
+<section id="extracción-transformación-y-carga-de-datos-estructurados" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="extracción-transformación-y-carga-de-datos-estructurados"><span class="header-section-number">1.1</span> Extracción, Transformación y Carga de Datos Estructurados</h2>
+<p>La extracción, transformación y carga de datos estructurados en inglés se abrevia con las siglas “ETL” (“extraction, transformation and loading”). ETL es un ejercicio muy típico en tareas de big data sobre las cuales se apoyan rutinariamente aplicaciones de inteligencia artificial tales como el aprendizaje automático. La sintaxis que veremos a continuación nos permite abrir un total de 22 archivos separados por comas (.csv) con datos de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia <span class="citation" data-cites="Garcia2022">(<a href="#ref-Garcia2022" role="doc-biblioref">2022</a>)</span>. Para ello, nos vamos a apoyar en “pandas” la cual es una librería muy conocida dentro de Python.</p>
+<p>Esta librería fue diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados. Por datos estructurados vamos a comprender una tabla en donde las variables que nos interesa analizar se ordenan por columnas, las observaciones de cada variable se ordenan por filas, y los valores de cada observación para cada variable se registran en cada celda, tal como aparece en la siguiente imágen.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tidy.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>Además de pandas, vamos a usar otras librerías como “importlib” y “pyarrow” para acortar el tiempo que nos tomará abrir los siguientes datos.</p>
+<div id="2f3b5750" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>LOAD_COLS <span class="op">=</span> <span class="st">'Origin'</span>, <span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>, <span class="st">'CRSDepTime'</span>, <span class="st">'DepTime'</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pandas.concat((pandas.read_csv(<span class="ss">f'/home/jcc/dataverse_files/</span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">.csv'</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                                    usecols<span class="op">=</span>LOAD_COLS,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                                    encoding_errors<span class="op">=</span><span class="st">'ignore'</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                                    dtype<span class="op">=</span>{<span class="st">'Origin'</span>: <span class="st">'category'</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'Year'</span>: <span class="st">'uint16'</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'Month'</span>: <span class="st">'uint8'</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'DayofMonth'</span>: <span class="st">'uint8'</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'CRSDepTime'</span>: <span class="st">'uint16'</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                                           <span class="st">'DepTime'</span>: <span class="st">'UInt16'</span>})</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">for</span> fname</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1987</span>, <span class="dv">2009</span>)),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                   ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> pandas.to_datetime(df[[<span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>]].rename(columns<span class="op">=</span>{<span class="st">'DayofMonth'</span>: <span class="st">'Day'</span>}))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'scheduled_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'CRSDepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'CRSDepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                                                 unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'actual_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'DepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'DepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                                            unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> date</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">'Origin'</span>, <span class="st">'scheduled_dep'</span>, <span class="st">'actual_dep'</span>]]</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> (df[<span class="st">'actual_dep'</span>] <span class="op">-</span> df[<span class="st">'scheduled_dep'</span>]).dt.total_seconds() <span class="op">/</span> <span class="dv">60</span> <span class="op">/</span> <span class="dv">60</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> df[<span class="st">'delay'</span>].where(df[<span class="st">'delay'</span>] <span class="op">&gt;</span> <span class="op">-</span> <span class="dv">2</span>, <span class="dv">24</span> <span class="op">-</span> df[<span class="st">'delay'</span>])</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">5</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>filas <span class="op">=</span> <span class="bu">len</span>(df)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'La base de datos tiene un total de </span><span class="sc">{</span>filas<span class="sc">}</span><span class="ss"> filas.'</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>La base de datos tiene un total de 118914458 filas.</code></pre>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pandas</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pyarrow</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pyarrow.csv</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    COLUMN_TYPES <span class="op">=</span> {<span class="st">'Origin'</span>: pyarrow.dictionary(pyarrow.int32(), pyarrow.string()),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Year'</span>: pyarrow.uint16(),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'Month'</span>: pyarrow.uint8(),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'DayofMonth'</span>: pyarrow.uint8(),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'CRSDepTime'</span>: pyarrow.uint16(),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'DepTime'</span>: pyarrow.uint16()}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    tables <span class="op">=</span> []</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> year <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1987</span>, <span class="dv">2009</span>):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        tables.append(pyarrow.csv.read_csv(</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'/home/jcc/dataverse_files/</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.csv'</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            convert_options<span class="op">=</span>pyarrow.csv.ConvertOptions(</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                include_columns<span class="op">=</span>COLUMN_TYPES,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                column_types<span class="op">=</span>COLUMN_TYPES)))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pyarrow.concat_tables(tables).to_pandas()</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># PyArrow is not installed, handle the situation appropriately</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"PyArrow is not installed. Please install it using 'pip install pyarrow'"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># You might consider alternative approaches like using Pandas or Dask for CSV reading and processing.</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Los datos que hemos abierto, tienen la siguiente apariencia</p>
+<div id="21307aee" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Origin</th>
+<th data-quarto-table-cell-role="th">Year</th>
+<th data-quarto-table-cell-role="th">Month</th>
+<th data-quarto-table-cell-role="th">DayofMonth</th>
+<th data-quarto-table-cell-role="th">CRSDepTime</th>
+<th data-quarto-table-cell-role="th">DepTime</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>SAN</td>
+<td>1987</td>
+<td>10</td>
+<td>14</td>
+<td>730</td>
+<td>741.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>SAN</td>
+<td>1987</td>
+<td>10</td>
+<td>15</td>
+<td>730</td>
+<td>729.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>SAN</td>
+<td>1987</td>
+<td>10</td>
+<td>17</td>
+<td>730</td>
+<td>741.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>SAN</td>
+<td>1987</td>
+<td>10</td>
+<td>18</td>
+<td>730</td>
+<td>729.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>SAN</td>
+<td>1987</td>
+<td>10</td>
+<td>19</td>
+<td>730</td>
+<td>749.0</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
+</div>
+<p>Podemos hacer algunos pequeños cambios a la base de datos de la siguiente manera</p>
+<div id="f05e55b0" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> pandas.to_datetime(df[[<span class="st">'Year'</span>, <span class="st">'Month'</span>, <span class="st">'DayofMonth'</span>]].rename(columns<span class="op">=</span>{<span class="st">'DayofMonth'</span>: <span class="st">'Day'</span>}))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'scheduled_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'CRSDepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'CRSDepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                                 unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'actual_dep'</span>] <span class="op">=</span> date <span class="op">+</span> pandas.to_timedelta((df[<span class="st">'DepTime'</span>] <span class="op">//</span> <span class="dv">100</span>) <span class="op">*</span> <span class="dv">60</span> <span class="op">+</span> (df[<span class="st">'DepTime'</span>] <span class="op">%</span> <span class="dv">100</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                            unit<span class="op">=</span><span class="st">'minutes'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> date</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">'Origin'</span>, <span class="st">'scheduled_dep'</span>, <span class="st">'actual_dep'</span>]]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> (df[<span class="st">'actual_dep'</span>] <span class="op">-</span> df[<span class="st">'scheduled_dep'</span>]).dt.total_seconds() <span class="op">/</span> <span class="dv">60</span> <span class="op">/</span> <span class="dv">60</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'delay'</span>] <span class="op">=</span> df[<span class="st">'delay'</span>].where(df[<span class="st">'delay'</span>] <span class="op">&gt;</span> <span class="op">-</span> <span class="dv">2</span>, <span class="dv">24</span> <span class="op">-</span> df[<span class="st">'delay'</span>])</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df.tail(<span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Origin</th>
+<th data-quarto-table-cell-role="th">scheduled_dep</th>
+<th data-quarto-table-cell-role="th">actual_dep</th>
+<th data-quarto-table-cell-role="th">delay</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">118914453</td>
+<td>BOS</td>
+<td>2008-04-17 10:25:00</td>
+<td>2008-04-17 10:25:00</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">118914454</td>
+<td>CVG</td>
+<td>2008-04-17 13:20:00</td>
+<td>2008-04-17 13:19:00</td>
+<td>-0.016667</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">118914455</td>
+<td>BOS</td>
+<td>2008-04-17 13:35:00</td>
+<td>2008-04-17 13:35:00</td>
+<td>0.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">118914456</td>
+<td>CVG</td>
+<td>2008-04-17 19:35:00</td>
+<td>2008-04-17 19:33:00</td>
+<td>-0.033333</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">118914457</td>
+<td>BWI</td>
+<td>2008-04-17 06:15:00</td>
+<td>2008-04-17 06:21:00</td>
+<td>0.100000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas.</p>
 
 
 
@@ -260,7 +405,7 @@ div.csl-indent {
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referencias</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Garcia2022" class="csl-entry" role="listitem">
-Garcia, Marc. 2022. <span>«pandas with hundreds of millions of rows»</span>. <a href="https://datapythonista.me/blog/pandas-with-hundreds-of-millions-of-rows">https://datapythonista.me/blog/pandas-with-hundreds-of-millions-of-rows</a>.
+Garcia, M. 2022. <span>«pandas with hundreds of millions of rows»</span>. <a href="https://datapythonista.me/blog/pandas-with-hundreds-of-millions-of-rows">https://datapythonista.me/blog/pandas-with-hundreds-of-millions-of-rows</a>.
 </div>
 <div id="ref-Hathaway2021" class="csl-entry" role="listitem">
 Hathaway, J., y K. Larson. 2021. <em><span>Python for Data Science</span></em>. GitHub. <a href="https://byuidatascience.github.io/python4ds/">https://byuidatascience.github.io/python4ds/</a>.
