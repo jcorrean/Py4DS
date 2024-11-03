@@ -6,7 +6,7 @@ keywords:
   - Python y R
   - Proyectos de Complejidad
 abstract: |
-  Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, video, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. Este tutorial tiene como objetivo brindar un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.
+  Aunque Microsoft Excel y Microsoft Project suelen ser las herramientas preferidas para la gestión y control de proyectos, sus limitaciones son evidentes cuando se necesita analizar datos no estructurados (e.g., colecciones de textos, fotos, videos, o audios) que resultan fundamentales para manejar la información relevante de un proyecto de gran complejidad que requiera el uso de herramientas de minería de datos, de big data, o de inteligencia artificial. Este tutorial tiene como objetivo brindar un panorama práctico de cómo se integra Python y R a la gestión y control de proyectos.
 ---
 
 
@@ -15,39 +15,65 @@ abstract: |
 
 Hay varias razones que nos obligan a considerar otras opciones más allá de Excel y de Microsoft Project que suelen ser las herramientas más populares para la gestión de proyectos.
 
-1.  Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer Big Data)
-2.  Microsoft Project no nos permite saber los pequeños cambios que pueden ocurrir en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil a través de GitHub.
-3.  Ni Excel ni Project son útiles para analizar "datos no estructurados" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más ágil.
-4.  El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). Veamos algunas funcionalidades básicas en las llamadas ciencias de datos para entender cómo funciona Python. Una cruda realidad es que las personas encargadas de recolectar datos no son especialistas en estadística y por ello no suelen guardar los datos de una manera que sean directamente usables para fines analíticos. Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson [-@Hathaway2021] quienes se inspiraron en la "biblia" de la ciencia de datos escrita por Wickham y Grolemund [-@Wickham2017].
+1.  Excel es limitado a la hora abrir archivos con datos que están en el orden de los millones de filas o columnas. (Excel no sirve para hacer "Big Data")
+2.  Con Microsoft Project no podemos saber los pequeños cambios que ocurrieron en cada uno de los archivos asociados al desarrollo del proyecto. Con Python y R, estos cambios pueden gestionarse de mánera ágil usando GitHub.
+3.  Ni Excel ni Project son útiles para analizar "datos no estructurados" tales como colecciones de documentos, fotos, videos, o audios. En cambio los datos no estructurados son analizables con Python y R de una forma más versátil y ágil.
+4.  El análisis de datos no estructurados es la base fundamental de herramientas como el aprendizaje automático (conocido en inglés como Machine Learning). 
 
-## Organización de datos con Pandas
+Parte de lo que veremos en las próximas subsecciones está tomado del libro de texto de Hathaway y Larson [-@Hathaway2021] quienes se inspiraron en la "biblia" de la ciencia de datos escrita por Wickham y Grolemund [-@Wickham2017].
 
-Pandas es una librería para Python que está diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados.
+## Extracción, Transformación y Carga de Datos Estructurados
 
-Lo primero que vamos a hacer es un ejercicio de big data, descomprimiendo un total de 22 archivos comprimidos con data de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia [-@Garcia2022].
+La extracción, transformación y carga de datos estructurados en inglés se abrevia con las siglas "ETL" ("extraction, transformation and loading"). ETL es un ejercicio muy típico en tareas de big data sobre las cuales se apoyan rutinariamente aplicaciones de inteligencia artificial tales como el aprendizaje automático. La sintaxis que veremos a continuación nos permite abrir un total de 22 archivos separados por comas (.csv) con datos de vuelos internacionales. Parte de lo que veremos acá está adaptado del blog de Marc Garcia [-@Garcia2022]. Para ello, nos vamos a apoyar en "pandas" la cual es una librería muy conocida dentro de Python.
+
+Esta librería fue diseñada para realizar tareas relacionadas con la lectura, edición, y manipulación de datos estructurados. Por datos estructurados vamos a comprender una tabla en donde las variables que nos interesa analizar se ordenan por columnas, las observaciones de cada variable se ordenan por filas, y los valores de cada observación para cada variable se registran en cada celda, tal como aparece en la siguiente imágen.
+
+![](tidy.png){fig-align="center"}
 
 
-
-Una vez realizado lo anterior, ahora pasamos a abrir la data
+Además de pandas, vamos a usar otras librerías como "importlib" y "pyarrow" para acortar el tiempo que nos tomará abrir los siguientes datos.
 
 ```{python}
-import pandas
+import importlib
 
-LOAD_COLS = 'Origin', 'Year', 'Month', 'DayofMonth', 'CRSDepTime', 'DepTime'
 
-df = pandas.concat((pandas.read_csv(f'/home/jcc/dataverse_files/{fname}.csv',
-                                    usecols=LOAD_COLS,
-                                    encoding_errors='ignore',
-                                    dtype={'Origin': 'category',
-                                           'Year': 'uint16',
-                                           'Month': 'uint8',
-                                           'DayofMonth': 'uint8',
-                                           'CRSDepTime': 'uint16',
-                                           'DepTime': 'UInt16'})
-                    for fname
-                    in range(1987, 2009)),
-                   ignore_index=True)
+try:
+    import pandas
+    import pyarrow
+    import pyarrow.csv
 
+    COLUMN_TYPES = {'Origin': pyarrow.dictionary(pyarrow.int32(), pyarrow.string()),
+                    'Year': pyarrow.uint16(),
+                    'Month': pyarrow.uint8(),
+                    'DayofMonth': pyarrow.uint8(),
+                    'CRSDepTime': pyarrow.uint16(),
+                    'DepTime': pyarrow.uint16()}
+
+    tables = []
+    for year in range(1987, 2009):
+        tables.append(pyarrow.csv.read_csv(
+            f'/home/jcc/dataverse_files/{year}.csv',
+            convert_options=pyarrow.csv.ConvertOptions(
+                include_columns=COLUMN_TYPES,
+                column_types=COLUMN_TYPES)))
+
+    df = pyarrow.concat_tables(tables).to_pandas()
+    
+except ImportError:
+    # PyArrow is not installed, handle the situation appropriately
+    print("PyArrow is not installed. Please install it using 'pip install pyarrow'")
+    # You might consider alternative approaches like using Pandas or Dask for CSV reading and processing.
+```
+
+Los datos que hemos abierto, tienen la siguiente apariencia
+
+```{python}
+df.head(5)
+```
+
+Podemos hacer algunos pequeños cambios a la base de datos de la siguiente manera
+
+```{python}
 date = pandas.to_datetime(df[['Year', 'Month', 'DayofMonth']].rename(columns={'DayofMonth': 'Day'}))
 
 df['scheduled_dep'] = date + pandas.to_timedelta((df['CRSDepTime'] // 100) * 60 + (df['CRSDepTime'] % 100),
@@ -61,9 +87,8 @@ df = df[['Origin', 'scheduled_dep', 'actual_dep']]
 df['delay'] = (df['actual_dep'] - df['scheduled_dep']).dt.total_seconds() / 60 / 60
 
 df['delay'] = df['delay'].where(df['delay'] > - 2, 24 - df['delay'])
-
-df.head(5)
-filas = len(df)
-print(f'La base de datos tiene un total de {filas} filas.')
+df.tail(5)
 ```
+
+Luego de esta última sintaxis en Python vemos que la base de datos que hemos abierto tiene un total de 118.914.457 filas  y cuatro columnas, aunque originalmente la base de datos tenía un total de seis columnas. 
 
