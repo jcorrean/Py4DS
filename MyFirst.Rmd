@@ -1,0 +1,30 @@
+---
+title: "My First Blog Post from R"
+author: "Juan C. Correa"
+date: "2023-11-22"
+output: html_document
+---
+
+## Introduction
+
+```{r}
+library(blogdown)
+install_theme("yihui/hugo-lithium", force = TRUE)
+new_site("http://correajc.com/xmlrpc.php", force = TRUE) 
+```
+
+
+## R Code Chunk
+
+```{r}
+library(ggplot2)
+ggplot(mtcars) + geom_point(aes(x = wt, y = mpg))
+```
+
+
+
+```{r}
+# Deploy your blog post
+blogdown::deploy_site()
+```
+

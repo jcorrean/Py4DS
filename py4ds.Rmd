@@ -76,22 +76,5 @@ En este ejemplo, solo la tabla 1 está ordenada. Es la única representación do
 
 Las librerías "altair" y "Pandas" funcionan bien con datos ordenados. Aquí hay un par de pequeños ejemplos que muestran cómo podría trabajar con la tabla 1.
 
-```{python}
-import altair as alt
-table1.assign(
-  rate = lambda x: x.cases / x.population * 1000
-)
 
-(table1.
-  groupby('year').
-  agg(n = ('cases', 'sum')).
-  reset_index())
-
-base_chart = (alt.Chart(table1).
-              encode(alt.X('year'), alt.Y('cases'), detail = 'country'))
-
-chart = base_chart.mark_line() + base_chart.encode(color = 'country').mark_circle()
-
-chart
-```
 
